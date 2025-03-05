@@ -50,6 +50,7 @@
             --name nginx-edge-tts \
             -v ./edge-tts-webui:/usr/share/nginx/html \
             -v ./edge-tts-webui/nginx-conf/nginx.conf:/etc/nginx/nginx.conf  \
+            --restart always \
             nginx:1.27
         ```
     - 在 win 上运行 edge-tts-webui
@@ -60,6 +61,7 @@
             --name nginx-edge-tts-webui \
             -v D:\github\openai-edge-tts-webui:/usr/share/nginx/html \
             -v D:\github\openai-edge-tts-webui\nginx-conf\nginx.conf:/etc/nginx/nginx.conf  \
+            --restart always \
             nginx:1.27
         ```    
     - 使用

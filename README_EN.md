@@ -49,6 +49,7 @@ Using Docker primarily solves cross-origin issues since my edge-tts is running i
         --name nginx-edge-tts \
         -v ./edge-tts-webui:/usr/share/nginx/html \
         -v ./edge-tts-webui/nginx-conf/nginx.conf:/etc/nginx/nginx.conf  \
+        --restart always \
         nginx:1.27
     ```
   - Run edge-tts-webui on Windows:
@@ -59,6 +60,7 @@ Using Docker primarily solves cross-origin issues since my edge-tts is running i
         --name nginx-edge-tts-webui \
         -v D:\github\openai-edge-tts-webui:/usr/share/nginx/html \
         -v D:\github\openai-edge-tts-webui\nginx-conf\nginx.conf:/etc/nginx/nginx.conf  \
+        --restart always \
         nginx:1.27
     ```
 
