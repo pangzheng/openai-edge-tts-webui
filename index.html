@@ -8,16 +8,19 @@
 </head>
 <body>
     <div class="container">
-        <button id="lang-toggle" class="btn btn-secondary lang-toggle">中文</button>
         <header>
             <h1 data-i18n="title">Text to Speech</h1>
             <p data-i18n="subtitle">Convert text using edge-tts</p>
+            <button id="lang-toggle" class="btn btn-secondary lang-toggle">中文</button>
         </header>
 
         <main class="row">
             <section class="column left-column">
                 <div class="input-group">
-                    <label for="text-area" data-i18n="text">Text</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="text-area" data-i18n="text">Text</label>
+                        <span id="char-count">0</span>
+                    </div>
                     <div class="textarea-container">
                         <textarea id="text-area" class="text-area" data-i18n="placeholder" placeholder="Please enter the text to convert"></textarea>
                         <div id="loading-overlay" class="loading-overlay" style="display: none;">
@@ -29,255 +32,71 @@
                     <label data-i18n="output">Output</label>
                     <audio controls class="audio-player output" id="output-audio"></audio>
                 </div>
+                <div id="progress" style="margin-top: 10px;"></div>
                 <button id="submit-btn" class="btn btn-primary" data-i18n="generate">Generate</button>
-            </section>
 
-            <section class="column right-column">
-                <div class="input-group">
-                    <label for="voices" data-i18n="voice">Voice</label>
-                    <select id="voices" class="dropdown">
-                        <option value="zh-CN-XiaoxiaoNeural" selected data-i18n="xiaoxiao">Xiaoxiao</option>
-                        <option value="zh-CN-XiaoyiNeural" data-i18n="xiaoyi">Xiaoyi</option>
-                        <option value="zh-CN-YunjianNeural" data-i18n="yunjian">Yunjian</option>
-                        <option value="zh-CN-YunxiNeural" data-i18n="yunxi">Yunxi</option>
-                        <option value="zh-CN-YunxiaNeural" data-i18n="yunxia">Yunxia</option>
-                        <option value="zh-CN-YunyangNeural" data-i18n="yunyang">Yunyang</option>
-                        <option value="zh-CN-liaoning-XiaobeiNeural" data-i18n="xiaobei">Xiaobei (Liaoning)</option>
-                        <option value="zh-CN-shaanxi-XiaoniNeural" data-i18n="xiaoni">Xiaoni (Shaanxi)</option>
-                    </select>
-                    <small data-i18n="voiceHint">Please select a voice</small>
-                </div>
-
-                <div class="input-group">
-                    <label data-i18n="preview">Preview</label>
-                    <div class="button-group">
-                        <button id="play-example" class="btn btn-green" data-i18n="play">Play</button>
-                        <button id="stop-example" class="btn btn-secondary" data-i18n="stop">Stop</button>
+                <button id="advanced-btn" class="btn btn-blue">Setting</button>
+                <div id="advanced-settings" class="advanced-settings">
+                    <div class="input-group">
+                        <label for="voices" data-i18n="voice">Voyunice</label>
+                        <select id="voices" class="dropdown">
+                            <option value="zh-CN-XiaoxiaoNeural"  data-i18n="xiaoxiao">Xiaoxiao</option>
+                            <option value="zh-CN-XiaoyiNeural" data-i18n="xiaoyi">Xiaoyi</option>
+                            <option value="zh-CN-YunjianNeural" selected data-i18n="yunjian">Yunjian</option>
+                            <option value="zh-CN-YunxiNeural" data-i18n="yunxi">Yunxi</option>
+                            <option value="zh-CN-YunxiaNeural" data-i18n="yunxia">Yunxia</option>
+                            <option value="zh-CN-YunyangNeural" data-i18n="yunyang">Yunyang</option>
+                            <option value="zh-CN-liaoning-XiaobeiNeural" data-i18n="xiaobei">Xiaobei (Liaoning)</option>
+                            <option value="zh-CN-shaanxi-XiaoniNeural" data-i18n="xiaoni">Xiaoni (Shaanxi)</option>
+                        </select>
+                        <small data-i18n="voiceHint">Please select a voice</small>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="preview">Preview</label>
+                        <div class="button-group">
+                            <button id="play-example" class="btn btn-green" data-i18n="play">Play</button>
+                            <button id="stop-example" class="btn btn-secondary" data-i18n="stop">Stop</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="format">Output Format</label>
+                        <select id="format" class="dropdown">
+                            <option value="mp3" selected>MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="aac">AAC</option>
+                            <option value="ogg">OGG</option>
+                        </select>
+                        <small data-i18n="formatHint">Select audio output format</small>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="speed">Speed Adjustment</label>
+                        <div class="slider-container">
+                            <input type="range" min="-100" max="100" value="0" step="1" class="slider" id="rate-slider">
+                            <span id="rate-value">0%</span>
+                        </div>
+                        <small data-i18n="speedHint">Range -100% to +100% (default 0%)</small>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="splitLength">Split Length</label>
+                        <div class="slider-container">
+                            <input type="range" min="200" max="1000" value="200" step="200" class="slider" id="split-slider">
+                            <span id="split-value">200</span>
+                        </div>
+                        <small data-i18n="splitHint">Range 200 to 1000 characters (default 200)</small>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="concurrency">Concurrency</label>
+                        <select id="concurrency" class="dropdown">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                        </select>
+                        <small data-i18n="concurrencyHint">Number of concurrent requests (default 1)</small>
                     </div>
                 </div>
-
-                <div class="input-group">
-                    <label data-i18n="speed">Speed Adjustment</label>
-                    <div class="slider-container">
-                        <input type="range" min="-100" max="100" value="0" step="1" class="slider" id="rate-slider">
-                        <span id="rate-value">0%</span>
-                    </div>
-                    <small data-i18n="speedHint">Range -100% to +100% (default 0%)</small>
-                </div>
-
-                <div class="input-group">
-                    <label data-i18n="format">Output Format</label>
-                    <select id="format" class="dropdown">
-                        <option value="mp3" selected>MP3</option>
-                        <option value="wav">WAV</option>
-                        <option value="aac">AAC</option>
-                        <option value="ogg">OGG</option>
-                    </select>
-                    <small data-i18n="formatHint">Select audio output format</small>
-                </div>
-
-                <button id="clear-btn" class="btn btn-secondary" data-i18n="clear">Clear</button>
             </section>
         </main>
     </div>
 
-    <script>
-        // 国际化语言包
-        const translations = {
-            en: {
-                title: "Text to Speech",
-                subtitle: "Convert text using edge-tts",
-                text: "Text",
-                placeholder: "Please enter the text to convert",
-                output: "Output",
-                generate: "Generate",
-                voice: "Voice",
-                voiceHint: "Please select a voice",
-                preview: "Preview",
-                play: "Play",
-                stop: "Stop",
-                speed: "Speed Adjustment",
-                speedHint: "Range -100% to +100% (default 0%)",
-                format: "Output Format",
-                formatHint: "Select audio output format",
-                clear: "Clear",
-                xiaoxiao: "Xiaoxiao",
-                xiaoyi: "Xiaoyi",
-                yunjian: "Yunjian",
-                yunxi: "Yunxi",
-                yunxia: "Yunxia",
-                yunyang: "Yunyang",
-                xiaobei: "Xiaobei (Liaoning)",
-                xiaoni: "Xiaoni (Shaanxi)"
-            },
-            zh: {
-                title: "文本转语音",
-                subtitle: "调用edge-tts进行转换",
-                text: "文本",
-                placeholder: "请输入要转换的文本",
-                output: "输出",
-                generate: "生成",
-                voice: "发音",
-                voiceHint: "请选择发音人",
-                preview: "试听",
-                play: "播放",
-                stop: "停止",
-                speed: "语速增减",
-                speedHint: "范围 -100% 到 +100% (默认 0%)",
-                format: "输出格式",
-                formatHint: "选择音频输出格式",
-                clear: "清除",
-                xiaoxiao: "晓晓",
-                xiaoyi: "晓伊",
-                yunjian: "云健",
-                yunxi: "云希",
-                yunxia: "云夏",
-                yunyang: "云扬",
-                xiaobei: "晓北（辽宁）",
-                xiaoni: "晓妮（陕西）"
-            }
-        };
-
-        let currentLang = 'en'; // 默认语言为英文
-
-        // 更新界面语言
-        function updateLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (element.tagName === 'TEXTAREA') {
-                    element.placeholder = translations[lang][key];
-                } else {
-                    element.textContent = translations[lang][key];
-                }
-            });
-            document.getElementById('lang-toggle').textContent = lang === 'en' ? '中文' : 'English';
-            document.title = translations[lang].title;
-        }
-
-        // DOM元素引用
-        const voiceSelect = document.getElementById('voices');
-        const rateSlider = document.getElementById('rate-slider');
-        const rateValue = document.getElementById('rate-value');
-        const playExampleBtn = document.getElementById('play-example');
-        const stopExampleBtn = document.getElementById('stop-example');
-        const submitBtn = document.getElementById('submit-btn');
-        const clearBtn = document.getElementById('clear-btn');
-        const textarea = document.getElementById('text-area');
-        const langToggleBtn = document.getElementById('lang-toggle');
-        const exampleAudio = new Audio();
-
-        const allButtons = [submitBtn, playExampleBtn, stopExampleBtn, clearBtn];
-
-        function updateExampleAudio() {
-            const selectedVoice = voiceSelect.value;
-            exampleAudio.src = `example/${selectedVoice}.wav`;
-        }
-
-        function toggleButtons(disabled) {
-            allButtons.forEach(button => {
-                button.disabled = disabled;
-            });
-        }
-
-        // 语言切换事件
-        langToggleBtn.addEventListener('click', () => {
-            updateLanguage(currentLang === 'en' ? 'zh' : 'en');
-        });
-
-        voiceSelect.addEventListener('change', updateExampleAudio);
-
-        playExampleBtn.addEventListener('click', function() {
-            updateExampleAudio();
-            exampleAudio.play();
-        });
-
-        stopExampleBtn.addEventListener('click', function() {
-            exampleAudio.pause();
-            exampleAudio.currentTime = 0;
-        });
-
-        rateSlider.addEventListener('input', function() {
-            rateValue.textContent = `${this.value}%`;
-        });
-
-        submitBtn.addEventListener('click', generateSpeech);
-
-        async function generateSpeech() {
-            const inputText = textarea.value;
-            const voice = voiceSelect.value;
-            const rate = rateSlider.value;
-            const format = document.getElementById('format').value;
-            const outputAudio = document.getElementById('output-audio');
-            const outputGroup = document.getElementById('output-group');
-            const loadingOverlay = document.getElementById('loading-overlay');
-
-            if (!inputText.trim()) {
-                alert(currentLang === 'en' ? 'Please enter text content' : '请输入文本内容');
-                return;
-            }
-
-            exampleAudio.pause();
-            exampleAudio.currentTime = 0;
-
-            loadingOverlay.style.display = 'flex';
-            toggleButtons(true);
-
-            const speedMultiplier = 1 + (parseInt(rate) / 100);
-
-            try {
-                const response = await fetch('http://localhost/v1/audio/speech', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer b4297f4c-5795-4427-ad51-049e5c1ad215'
-                    },
-                    body: JSON.stringify({
-                        input: inputText,
-                        voice: voice,
-                        speed: speedMultiplier,
-                        response_format: format
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(currentLang === 'en' ? 
-                        'Failed to generate speech: ' + response.statusText : 
-                        '生成语音失败: ' + response.statusText);
-                }
-
-                const audioBlob = await response.blob();
-                const audioUrl = URL.createObjectURL(audioBlob);
-                outputAudio.src = audioUrl;
-                outputGroup.style.display = 'block';
-                textarea.classList.add('generated');
-                outputAudio.play();
-
-            } catch (error) {
-                alert(currentLang === 'en' ? 'Error: ' + error.message : '错误：' + error.message);
-            } finally {
-                loadingOverlay.style.display = 'none';
-                toggleButtons(false);
-            }
-        }
-
-        clearBtn.addEventListener('click', function() {
-            textarea.value = '';
-            rateSlider.value = 0;
-            rateValue.textContent = '0%';
-            document.getElementById('format').value = 'mp3';
-            const outputAudio = document.getElementById('output-audio');
-            const outputGroup = document.getElementById('output-group');
-            outputAudio.src = '';
-            outputGroup.style.display = 'none';
-            exampleAudio.pause();
-            exampleAudio.currentTime = 0;
-            textarea.classList.remove('generated');
-        });
-
-        // 初始化
-        updateExampleAudio();
-        updateLanguage('en'); // 默认设置为英文
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

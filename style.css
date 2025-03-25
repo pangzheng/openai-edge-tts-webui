@@ -9,14 +9,18 @@ body {
     line-height: 1.6;
     background-color: #f5f5f5;
 }
+
 /* 容器 */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
 }
+
 /* 头部 */
 header {
+    max-width: 1200px;
     text-align: center;
     margin-bottom: 30px;
 }
@@ -28,6 +32,7 @@ header h1 {
 header p {
     color: #666;
 }
+
 /* 布局 */
 .row {
     display: flex;
@@ -41,6 +46,12 @@ header p {
     flex-direction: column;
     gap: 20px;
 }
+@media (max-width: 600px) {
+    .column {
+        min-width: 100%;
+    }
+}
+
 /* 输入组 */
 .input-group {
     display: flex;
@@ -55,7 +66,11 @@ header p {
     color: #888;
     font-size: 0.85rem;
 }
+
 /* 输入元素 */
+.textarea-container {
+    position: relative;
+}
 .text-area {
     width: 100%;
     min-height: 200px;
@@ -64,10 +79,9 @@ header p {
     border-radius: 4px;
     resize: vertical;
     font-size: 1rem;
-    height: 375px;
 }
 .text-area.generated {
-    height: 265px; /* 生成后的高度 */
+    min-height: 150px;
 }
 .dropdown {
     width: 100%;
@@ -92,6 +106,14 @@ header p {
     background: #4CAF50;
     border-radius: 50%;
     cursor: pointer;
+}
+.slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
 }
 .audio-player {
     width: 100%;
@@ -121,7 +143,20 @@ header p {
 .btn-secondary:hover {
     background-color: #da190b;
 }
-
+.btn-blue {
+    background-color: #007bff; /* 蓝色背景 */
+    color: white;
+}
+.btn-blue:hover {
+    background-color: #0056b3; /* 鼠标悬停时的蓝色 */
+}
+.btn-green {
+    background-color: #2833a7;
+    color: white;
+}
+.btn-green:hover {
+    background-color: #007bff;
+}
 /* 播放器和按钮 */
 .slider-container {
     display: flex;
@@ -134,7 +169,7 @@ header p {
 }
 .button-group {
     display: flex;
-    gap: 10px; /* 播放和停止按钮之间的间距 */
+    gap: 10px;
 }
 
 /* 加载动画 */
@@ -162,20 +197,30 @@ header p {
     100% { transform: rotate(360deg); }
 }
 
-/* 绿色按钮 */
-.btn-green {
-    background-color: #28a745; /* 绿色 */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-}
-.btn-green:hover {
-    background-color: #218838; /* 深绿色悬停效果 */
-}
-
+/* 语言切换按钮 */
 .lang-toggle {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+/* 高级设置 */
+.advanced-settings {
+    display: none; /* 默认隐藏 */
+}
+.advanced-settings.open {
+    display: block; /* 点击显示 */
+}
+
+/* 其他 */
+#char-count {
+    font-size: 14px;
+    color: #666;
+    padding: 2px 6px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+#progress {
+    font-size: 14px;
+    color: #333;
 }
