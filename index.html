@@ -29,18 +29,27 @@
                     </div>
                 </div>
                 <div class="input-group" id="output-group" style="display: none;">
-                    <label data-i18n="output">Output</label>
-                    <audio controls class="audio-player output" id="output-audio"></audio>
-                </div>
-                <div id="progress" style="margin-top: 10px;"></div>
-                <button id="submit-btn" class="btn btn-primary" data-i18n="generate">Generate</button>
+                    <label data-i18n="output">Output(cache)</label>
 
+                    <div id="time-display">00:00:00 / 00:00:00 (0/0)</div>
+
+                    <div class="volume-control">
+                        <span id="volume-icon">🔊</span>
+                        <input type="range" id="volume-slider" min="0" max="100" step="5" value="60">
+                    </div>
+                    
+                    <button id="play-pause-btn" data-tooltip="playTooltip">▶️</button>
+                    <button id="download-btn" disabled data-tooltip="downloadTooltip">⬇💾⬇</button>
+                </div>
+                
+                <button id="submit-btn" class="btn btn-primary" data-i18n="generate">Generate</button>
+                
                 <button id="advanced-btn" class="btn btn-blue">Setting</button>
                 <div id="advanced-settings" class="advanced-settings">
                     <div class="input-group">
-                        <label for="voices" data-i18n="voice">Voyunice</label>
+                        <label for="voices" data-i18n="voice">Voice</label>
                         <select id="voices" class="dropdown">
-                            <option value="zh-CN-XiaoxiaoNeural"  data-i18n="xiaoxiao">Xiaoxiao</option>
+                            <option value="zh-CN-XiaoxiaoNeural" data-i18n="xiaoxiao">Xiaoxiao</option>
                             <option value="zh-CN-XiaoyiNeural" data-i18n="xiaoyi">Xiaoyi</option>
                             <option value="zh-CN-YunjianNeural" selected data-i18n="yunjian">Yunjian</option>
                             <option value="zh-CN-YunxiNeural" data-i18n="yunxi">Yunxi</option>
@@ -59,7 +68,7 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <label data-i18n="format">Output Format</label>
+                        <label for="format" data-i18n="format">Output Format</label>
                         <select id="format" class="dropdown">
                             <option value="mp3" selected>MP3</option>
                             <option value="wav">WAV</option>
@@ -69,7 +78,7 @@
                         <small data-i18n="formatHint">Select audio output format</small>
                     </div>
                     <div class="input-group">
-                        <label data-i18n="speed">Speed Adjustment</label>
+                        <label  data-i18n="speed">Speed Adjustment</label>
                         <div class="slider-container">
                             <input type="range" min="-100" max="100" value="0" step="1" class="slider" id="rate-slider">
                             <span id="rate-value">0%</span>
@@ -77,7 +86,7 @@
                         <small data-i18n="speedHint">Range -100% to +100% (default 0%)</small>
                     </div>
                     <div class="input-group">
-                        <label data-i18n="splitLength">Split Length</label>
+                        <label  data-i18n="splitLength">Split Length</label>
                         <div class="slider-container">
                             <input type="range" min="200" max="1000" value="200" step="200" class="slider" id="split-slider">
                             <span id="split-value">200</span>
@@ -85,7 +94,7 @@
                         <small data-i18n="splitHint">Range 200 to 1000 characters (default 200)</small>
                     </div>
                     <div class="input-group">
-                        <label data-i18n="concurrency">Concurrency</label>
+                        <label for="concurrency" data-i18n="concurrency">Concurrency</label>
                         <select id="concurrency" class="dropdown">
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
@@ -97,6 +106,10 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <!-- 引入拆分后的 JS 文件 -->
+    <script src="js/i18n.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

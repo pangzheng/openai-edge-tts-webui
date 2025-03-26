@@ -144,11 +144,11 @@ header p {
     background-color: #da190b;
 }
 .btn-blue {
-    background-color: #007bff; /* 蓝色背景 */
+    background-color: #007bff;
     color: white;
 }
 .btn-blue:hover {
-    background-color: #0056b3; /* 鼠标悬停时的蓝色 */
+    background-color: #0056b3;
 }
 .btn-green {
     background-color: #2833a7;
@@ -157,6 +157,7 @@ header p {
 .btn-green:hover {
     background-color: #007bff;
 }
+
 /* 播放器和按钮 */
 .slider-container {
     display: flex;
@@ -206,10 +207,10 @@ header p {
 
 /* 高级设置 */
 .advanced-settings {
-    display: none; /* 默认隐藏 */
+    display: none;
 }
 .advanced-settings.open {
-    display: block; /* 点击显示 */
+    display: block;
 }
 
 /* 其他 */
@@ -223,4 +224,77 @@ header p {
 #progress {
     font-size: 14px;
     color: #333;
+}
+
+/* 新增样式：时间显示、进度条、音量控制 */
+#time-display {
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #fff; /* 未缓存 */
+    position: relative;
+}
+.cached {
+    height: 100%;
+    background: #ccc; /* 已缓存 */
+    width: 0;
+    position: absolute;
+}
+.played {
+    height: 100%;
+    background: #4CAF50; /* 已播放 */
+    width: 0;
+    position: absolute;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+#volume-slider {
+    width: 100px;
+}
+
+/* 输出区域按钮布局 */
+#output-group .btn {
+    margin-right: 10px; /* 播放和下载按钮之间的间距 */
+}
+#output-group .btn:last-child {
+    margin-right: 0; /* 最后一个按钮无右边距 */
+}
+
+/* 按钮基础样式 */
+#play-pause-btn, #download-btn {
+    font-size: 24px;
+    padding: 10px;
+    position: relative; /* 为自定义提示定位 */
+}
+
+/* 禁用状态 */
+#download-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 默认 title 样式（可选） */
+button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 10;
 }
