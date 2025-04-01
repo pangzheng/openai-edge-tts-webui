@@ -74,8 +74,8 @@ docker pull nginx:1.27
 
 #### 获取项目代码
 ```bash
-git clone https://github.com/your-username/edge-tts-webui.git
-cd edge-tts-webui
+git clone https://github.com/your-username/openai-edge-tts-webui.git
+cd openai-edge-tts-webui
 ```
 
 > **注**：请将 `your-username` 替换为实际的 GitHub 用户名和仓库地址。
@@ -87,8 +87,8 @@ cd edge-tts-webui
 docker run -p 80:80 -d \
     --add-host=host.docker.internal:host-gateway \
     --name nginx-edge-tts \
-    -v $(pwd)/edge-tts-webui:/usr/share/nginx/html \
-    -v $(pwd)/edge-tts-webui/nginx-conf/nginx.conf:/etc/nginx/nginx.conf \
+    -v $(pwd)/openai-edge-tts-webui:/usr/share/nginx/html \
+    -v $(pwd)/openai-edge-tts-webui/nginx-conf/nginx.conf:/etc/nginx/nginx.conf \
     --restart always \
     nginx:1.27
 ```
@@ -98,8 +98,8 @@ docker run -p 80:80 -d \
 docker run -p 80:80 -d \
     --add-host=host.docker.internal:host-gateway \
     --name nginx-edge-tts-webui \
-    -v D:\github\edge-tts-webui:/usr/share/nginx/html \
-    -v D:\github\edge-tts-webui\nginx-conf\nginx.conf:/etc/nginx/nginx.conf \
+    -v d:\github\openai-edge-tts-webui:/usr/share/nginx/html \
+    -v d:\github\openai-edge-tts-webui\nginx-conf\nginx.conf:/etc/nginx/nginx.conf \
     --restart always \
     nginx:1.27
 ```
@@ -144,7 +144,7 @@ docker run -p 80:80 -d \
 ## 文件结构
 
 ```
-edge-tts-webui/
+openai-edge-tts-webui/
 ├── index.html         # 主页面
 ├── style.css          # 样式文件
 ├── js/

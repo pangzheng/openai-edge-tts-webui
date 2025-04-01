@@ -55,8 +55,8 @@ docker pull nginx:1.27
 ```
 #### Get Project Code
 ```bash
-git clone https://github.com/your-username/edge-tts-webui.git
-cd edge-tts-webui
+git clone https://github.com/your-username/openai-edge-tts-webui.git
+cd openai-edge-tts-webui
 ```
 > **Note**: Replace `your-username` with your actual GitHub username and repository address.
 #### Run the Web Interface
@@ -65,18 +65,19 @@ cd edge-tts-webui
 docker run -p 80:80 -d \
     --add-host=host.docker.internal:host-gateway \
     --name nginx-edge-tts \
-    -v $(pwd)/edge-tts-webui:/usr/share/nginx/html \
-    -v $(pwd)/edge-tts-webui/nginx-conf/nginx.conf:/etc/nginx/nginx.conf \
+    -v $(pwd)/openai-edge-tts-webui:/usr/share/nginx/html \
+    -v $(pwd)/openai-edge-tts-webui/nginx-conf/nginx.conf:/etc/nginx/nginx.conf \
     --restart always \
     nginx:1.27
 ```
 - **Windows**
 ```bash
+cd 
 docker run -p 80:80 -d \
     --add-host=host.docker.internal:host-gateway \
     --name nginx-edge-tts-webui \
-    -v D:\github\edge-tts-webui:/usr/share/nginx/html \
-    -v D:\github\edge-tts-webui\nginx-conf\nginx.conf:/etc/nginx/nginx.conf \
+    -v d:\github\openai-edge-tts-webui:/usr/share/nginx/html \
+    -v d:\github\openai-edge-tts-webui\nginx-conf\nginx.conf:/etc/nginx/nginx.conf \
     --restart always \
     nginx:1.27
 ```
@@ -111,7 +112,7 @@ The `nginx.conf` is already configured with reverse proxy and CORS support for c
 - **Segment Length**: Adjust the `min`, `max`, and `step` attributes of `split-slider`.
 ## File Structure
 ```
-edge-tts-webui/
+openai-edge-tts-webui/
 ├── index.html         # Main page
 ├── style.css          # Style file
 ├── js/
